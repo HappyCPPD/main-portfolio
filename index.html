@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body>
+  <div id="boot-screen">
+    <h1>Welcome</h1>
+    <p>Loading Portfolio...</p>
+    <div class="progress-container">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+  <div id="desktop" style="display: none;">
+    <div id="icons">
+      <div class="icon" onclick="launchApp('about')">
+        <div class="icon-bg">
+          <i class="fas fa-user"></i>
+        </div>
+        <span>About Me</span>
+      </div>
+      <div class="icon" onclick="launchApp('projects')">
+        <div class="icon-bg">
+          <i class="fas fa-laptop-code"></i>
+        </div>
+        <span>Projects</span>
+      </div>
+      <div class="icon" onclick="launchApp('contact')">
+        <div class="icon-bg">
+          <i class="fas fa-envelope"></i>
+        </div>
+        <span>Contact</span>
+      </div>
+      <div class="icon" onclick="launchApp('terminal')">
+        <div class="icon-bg">
+          <i class="fas fa-terminal"></i>
+        </div>
+        <span>Terminal</span>
+      </div>
+    </div>
+    <div id="taskbar">
+      <div id="start-menu-button" onclick="toggleStartMenu()">
+        <i class="fas fa-th"></i>
+      </div>
+      <div id="start-menu" style="display: none;">
+        <div class="menu-header">
+          <img src="images\happy-1024.png" alt="Profile" class="profile-pic">
+          <div>My Portfolio</div>
+        </div>
+        <div class="menu-item" onclick="launchApp('about')">
+          <i class="fas fa-user"></i> About Me
+        </div>
+        <div class="menu-item" onclick="launchApp('projects')">
+          <i class="fas fa-laptop-code"></i> Projects
+        </div>
+        <div class="menu-item" onclick="launchApp('contact')">
+          <i class="fas fa-envelope"></i> Contact
+        </div>
+        <div class="menu-item" onclick="launchApp('terminal')">
+          <i class="fas fa-terminal"></i> Terminal
+        </div>
+      </div>
+      <div id="task-items"></div>
+      <div id="datetime"></div>
+    </div>
+    <div id="about" class="app-window">
+      <div class="title-bar" onmousedown="startDrag(event, this)">
+        <div class="window-icon"><i class="fas fa-user"></i></div>
+        <span>About Me</span>
+        <div class="window-controls">
+          <button onclick="minimizeApp('about')"><i class="fas fa-window-minimize"></i></button>
+          <button onclick="maximizeApp('about')"><i class="fas fa-window-maximize"></i></button>
+          <button onclick="closeApp('about')"><i class="fas fa-times"></i></button>
+        </div>
+      </div>
+      <div class="window-sidebar">
+        <div class="sidebar-item active"><i class="fas fa-home"></i> Home</div>
+      </div>
+      <div class="content with-sidebar">
+        <div class="about-header">
+          <img src="images\happy-1024.png" alt="Profile" class="profile-pic">
+          <div>
+            <h2>Ashton Ang</h2>
+            <p class="subtitle">Student Developer</p>
+          </div>
+        </div>
+        <div class="about-content">
+            <p>Hello! I'm Ashton, a student who enjoys programming and learning about cybersecurity.</p>
+            <p>I like building small tools and apps, especially ones that help me understand how things work or explore how to keep systems safe.</p>           
+          <div class="skill-section">
+            <h3>My Skills</h3>
+            <div class="skill-bars">
+              <div class="skill">
+                <span>Python</span>
+                <div class="skill-bar"><div class="skill-level" style="width: 45%"></div></div>
+              </div>
+              <div class="skill">
+                <span>Html</span>
+                <div class="skill-bar"><div class="skill-level" style="width: 65%"></div></div>
+              </div>
+              <div class="skill">
+                <span>C#</span>
+                <div class="skill-bar"><div class="skill-level" style="width: 15%"></div></div>
+              </div>
+              <div class="skill">
+                <span>JavaScript</span>
+                <div class="skill-bar"><div class="skill-level" style="width: 30%"></div></div>
+              </div>
+              <div class="skill">
+                <span>Bash</span>
+                <div class="skill-bar"><div class="skill-level" style="width: 50%"></div></div>
+              </div>
+              <div class="skill">
+                <span>Lua</span>
+                <div class="skill-bar"><div class="skill-level" style="width: 70%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="projects" class="app-window">
+      <div class="title-bar" onmousedown="startDrag(event, this)">
+        <div class="window-icon"><i class="fas fa-laptop-code"></i></div>
+        <span>Projects</span>
+        <div class="window-controls">
+          <button onclick="minimizeApp('projects')"><i class="fas fa-window-minimize"></i></button>
+          <button onclick="maximizeApp('projects')"><i class="fas fa-window-maximize"></i></button>
+          <button onclick="closeApp('projects')"><i class="fas fa-times"></i></button>
+        </div>
+      </div>
+      <div class="content">
+        <div class="projects-filter">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="python">Python</button>
+          <button class="filter-btn" data-filter="bash">Bash</button>
+          <button class="filter-btn" data-filter="web">Web</button>
+        </div>
+        <div id="project-list" class="project-grid"></div>
+      </div>
+    </div>
+    <div id="contact" class="app-window">
+      <div class="title-bar" onmousedown="startDrag(event, this)">
+        <div class="window-icon"><i class="fas fa-envelope"></i></div>
+        <span>Contact</span>
+        <div class="window-controls">
+          <button onclick="minimizeApp('contact')"><i class="fas fa-window-minimize"></i></button>
+          <button onclick="maximizeApp('contact')"><i class="fas fa-window-maximize"></i></button>
+          <button onclick="closeApp('contact')"><i class="fas fa-times"></i></button>
+        </div>
+      </div>
+      <div class="content">
+        <div class="contact-container">
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <a href="mailto:AshtonAng77@gmail.com">AshtonAng77@gmail.com</a>
+            </div>
+            <div class="contact-item">
+              <i class="fab fa-github"></i>
+              <a href="https://github.com/HappyCPPD" target="_blank">github.com/HappyCPPD</a>
+            </div>
+            <div class="contact-item">
+              <i class="fab fa-linkedin"></i>
+              <a href="https://linkedin.com/in/ashton-ang-846999353/" target="_blank">linkedin.com/in/ashton-ang-846999353/</a>
+            </div>                        
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="terminal" class="app-window">
+      <div class="title-bar" onmousedown="startDrag(event, this)">
+        <div class="window-icon"><i class="fas fa-terminal"></i></div>
+        <span>Terminal</span>
+        <div class="window-controls">
+          <button onclick="minimizeApp('terminal')"><i class="fas fa-window-minimize"></i></button>
+          <button onclick="maximizeApp('terminal')"><i class="fas fa-window-maximize"></i></button>
+          <button onclick="closeApp('terminal')"><i class="fas fa-times"></i></button>
+        </div>
+      </div>
+      <div class="content terminal">
+        <div id="terminal-output">Welcome to my Portfolio
+Type <strong>help</strong> for a list of commands.</div>
+        <div class="terminal-input-line">
+          <span class="terminal-prompt">guest@portfolio:~$</span>
+          <input type="text" id="terminal-input" placeholder="" onkeydown="handleTerminal(event)">
+        </div>
+      </div>
+    </div>
+    <div class="notification" id="notification">
+      <div class="notification-content">
+        <i class="notification-icon fas fa-info-circle"></i>
+        <div class="notification-text">Welcome to my portfolio!</div>
+      </div>
+      <button class="notification-close" onclick="closeNotification()">×</button>
+    </div>
+  </div>
+  <script src="scripts.js"></script>
+</body>
+</html>
